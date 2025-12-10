@@ -3,24 +3,24 @@ CIECAM16 Color Appearance Model and CAM16 Uniform ColorSpace for MATLAB
 
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=DrosteEffect/CIECAM16)
 
-This code is based on one main source:
+This code is based on the following sources:
 
-1. the article "Comprehensive color solutions: CAM16, CAT16, and CAM16-UCS"
-   by color researchers Changjun Li, Zhiqiang Li, Zhifeng Wang, Yang Xu,
-   Ming Ronnier Luo, Guihua Cui, Manuel Melgosa, Michael H. Brill,
-   Michael Pointer in "Color Research and Application" Volume 42 Issue 6
-   on the 10th June 2017.
+1. the article "Algorithmic improvements for the CIECAM02 and CAM16 color
+   appearance models" by Nico Schlömer, revised on the 14th of October 2021.
+2. the article "Comprehensive color solutions: CAM16, CAT16, and CAM16-UCS"
+   by Changjun Li, Zhiqiang Li, Zhifeng Wang, Yang Xu, Ming Ronnier Luo,
+   Guihua Cui, Manuel Melgosa, Michael H. Brill, Michael Pointer in "Color
+   Research and Application" Volume 42 Issue 6, published on the 10th of June 2017.
 
-This MATLAB implementation does _**not**_ require the Image Processing Toolbox!
+This code does _**not**_ require the Image Processing Toolbox!
 
-This MATLAB implementation is based on my CIECAM02 implementation: <https://github.com/DrosteEffect/CIECAM02>
+This code is based on my CIECAM02 implementation: <https://github.com/DrosteEffect/CIECAM02>
 
 My goal was to provide functionality as simple as the commonly used CIELab
 colorspace conversions, whilst providing a much more perceptually uniform
 colorspace. Note that I replaced calculations with a matrix inverse, e.g.
-`inv(A)*b`, with the recommended and numerically more precise `A\b`:
-
-<https://www.mathworks.com/help/matlab/ref/inv.html>
+`inv(A)*b`, with the recommended and numerically more precise `\` or `/`,
+see: <https://www.mathworks.com/help/matlab/ref/inv.html>
 
 Quickstart Guide: As Easy As CIELAB!
 ------------------------------------

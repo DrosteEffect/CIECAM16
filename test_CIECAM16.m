@@ -3,7 +3,7 @@ function test_CIECAM16()
 %
 %% Dependencies %%
 %
-% * MATLAB R2009a or later.
+% * MATLAB R2009b or later.
 % * CIECAM16_parameters.m, CIECAM16_to_CIEXYZ.m,
 %   CIEXYZ_to_CIECAM16.m, and test_fun.m
 %   all from <https://github.com/DrosteEffect/CIECAM16>
@@ -16,8 +16,7 @@ XYZ = [19.01,20.00,21.78]/100;
 L_A = 318.31; Y_b = 20.0;
 wp  = [95.05, 100, 108.88]/100;
 prm = CIECAM16_parameters(wp,Y_b,L_A,'average');
-%J=41.7312079; C=0.1033557; h=217.0679597; s=2.3450150; Q=195.3717089; M=0.1074367; H=275.5949861; % CIECAM16
-J=41.7312079; C=0.1033557; h=217.0679597; s=2.3450150; Q=195.3717089; M=0.1074367; H=275.5949861; % CAM16
+J=41.7312079; C=0.1033557; h=217.0679597; s=2.3450150; Q=195.3717089; M=0.1074367; H=275.5949861;
 %
 test_fun(mkStruct(J,Q,C,M,s,H,h), @CIEXYZ_to_CIECAM16, XYZ, prm)
 %
@@ -51,7 +50,7 @@ end
 S = struct(C{:});
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%mkStruct
-% Copyright (c) 2017-2025 Stephen Cobeldick
+% Copyright (c) 2017-2026 Stephen Cobeldick
 %
 % Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 %

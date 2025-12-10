@@ -44,7 +44,7 @@ function out = CIEXYZ_to_CIECAM16(XYZ,prm,isn)
 %
 %% Dependencies %%
 %
-% * MATLAB R2009a or later.
+% * MATLAB R2009b or later.
 % * CIECAM16_parameters.m <https://github.com/DrosteEffect/CIECAM16>
 %
 % See also CIECAM16_TO_CIEXYZ CIECAM16_TO_CAM16UCS CIEXYZ_TO_SRGB
@@ -86,7 +86,7 @@ RGB = (100*XYZ) * prm.M16.';
 %
 RGB_c = bsxfun(@times, prm.RGB_D, RGB);
 %
-%%% Step 3: Hunt-Pointer-Estevez response %%%
+%%% Step 3: NA %%%
 %
 %%% Step 4: post-adaption cone response (CAM16) %%%
 %
@@ -118,7 +118,11 @@ idxU = q>=prm.q_U;
 f_e(idxL) = f_L + (q(idxL) - prm.q_L) .* (f_L./prm.q_L);
 f_e(idxU) = f_U + (q(idxU) - prm.q_U) .* fpU;
 %
-RGB_a = sign(RGB_c) .* f_e + 0.1;
+if prm.isns
+	RGB_a = sign(RGB_c) .* f_e;
+else % CIE
+	RGB_a = sign(RGB_c) .* f_e + 0.1;
+end
 %
 %%% Step 5: hue angle & opponent color dimensions a (red-green) & b (yellow-blue) %%%
 %
@@ -138,7 +142,11 @@ H = prm.H_i(idx) + (100*tmp) ./ (tmp + (prm.h_i(idx+1)-hp) ./ prm.e_i(idx+1));
 %
 %%% Step 7: achromatic response %%%
 %
-A = (RGB_a*[2;1;1/20] - 0.305) .* prm.N_bb;
+if prm.isns
+	A = (RGB_a*[2;1;1/20]) .* prm.N_bb;
+else % CIE
+	A = (RGB_a*[2;1;1/20] - 0.305) .* prm.N_bb;
+end
 A(A<0) = 0 / ~(nargin<3 || isn);
 %
 %%% Step 8: correlate of lightness %%%
@@ -152,17 +160,26 @@ Q = (4./prm.c) .* sqrt(J/100) .* (prm.A_w+4) .* sqrt(sqrt(prm.F_L)); % brightnes
 %%% Step 10: correlates of chroma, colorfulness, and saturation %%%
 %
 e = (12500/13) .* prm.N_c .* prm.N_cb .* (cos(h_rad+2) + 3.8); % eccentricity factor
-tmp = (e .* sqrt(a.^2 + b.^2) ./ (RGB_a*[1;1;21/20]));
+if prm.isns
+	tmp = e .* sqrt(a.^2 + b.^2) ./ (RGB_a*[1;1;21/20]+0.305);
+else % CIE
+	tmp = e .* sqrt(a.^2 + b.^2) ./ (RGB_a*[1;1;21/20]);
+end
 C = tmp.^0.9 .* sqrt(J/100) .* (1.64 - 0.29.^prm.n).^0.73; % chroma
 M = C .* sqrt(sqrt(prm.F_L)); % colorfulness
-s = 100*sqrt(M ./ Q); % saturation
+if prm.isns
+	s = 50 .* sqrt((C.*prm.c) ./ ((prm.A_w+4).*sqrt(J/100)));
+	s(J==0 | s==0) = 0; % saturation
+else % CIE
+	s = 100*sqrt(M ./ Q); % saturation
+end
 %
 out = struct('J',J,'Q',Q,'C',C,'M',M,'s',s,'H',H,'h',h);
 out = structfun(@(v)reshape(v,isz), out, 'UniformOutput',false);
 %
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%CIEXYZ_to_CIECAM16
-% Copyright (c) 2017-2025 Stephen Cobeldick
+% Copyright (c) 2017-2026 Stephen Cobeldick
 %
 % Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 %
