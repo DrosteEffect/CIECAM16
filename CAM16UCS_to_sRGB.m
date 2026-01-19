@@ -5,8 +5,7 @@ function rgb = CAM16UCS_to_sRGB(Jab,isd,varargin)
 %
 %   rgb = CAM16UCS_to_sRGB(Jab)
 %   rgb = CAM16UCS_to_sRGB(Jab,isd)
-%   rgb = CAM16UCS_to_sRGB(Jab,isd,space)
-%   rgb = CAM16UCS_to_sRGB(Jab,isd,K_L,c1,c2)
+%   rgb = CAM16UCS_to_sRGB(Jab,isd,<opts>)
 %
 % If the input was being used for calculating the euclidean color distance
 % (i.e. deltaE) use isd=true, so that J' values are multiplied by K_L.
@@ -24,10 +23,7 @@ function rgb = CAM16UCS_to_sRGB(Jab,isd,varargin)
 %         Size Nx3 or RxCx3, the last dimension encodes the J',a',b' values.
 %   isd = true    -> scale J' for euclidean distance calculations (divide by K_L)
 %       = false** -> return reference J' values (no scaling).
-%   space = StringScalar or CharRowVector, one of the following:
-%           'LCD'/'SCD'/'UCS'**, which selects a predefined CAM16 space
-%           LargeColorDifference / SmallColorDifference / UniformColorSpace.
-%           'UCSHF' selects the UCS proposed by Hellwig & Fairchild.
+%   <opts> = all trailing inputs are passed to CAM16UCS_parameters.
 %
 %% Output Arguments %%
 %
