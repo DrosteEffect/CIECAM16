@@ -215,7 +215,7 @@ RGB = bsxfun(@rdivide,RGB_c,prm.RGB_D);
 %
 XYZ = RGB / prm.M16.';
 %
-XYZ = reshape(max(0,min(1,XYZ/100)),isz);
+XYZ = reshape(XYZ/100,isz);
 %
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%CIECAM16_to_CIEXYZ
