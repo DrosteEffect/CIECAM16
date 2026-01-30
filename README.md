@@ -34,7 +34,8 @@ is easy with these convenience functions (i.e. `rgb2jab` and `jab2rgb`):
 
 These use default values that are appropriate for sRGB (D65 illuminant, etc),
 and the CAM16-UCS colorspace (option to select SCD, LCD, UCS, or UCSHF (Hellwig & Fairchild) colorspaces).
-Note that the sRGB inputs are MATLAB standard float values `0<=rgb<=1`.
+Note that the sRGB inputs are MATLAB standard float values `0<=rgb<=1` or
+integer values `0<=rgb<=intmax(class(rgb))`.
 
 Other Conversions
 -----------------
