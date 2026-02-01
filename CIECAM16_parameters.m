@@ -5,7 +5,7 @@ function prm = CIECAM16_parameters(wp,Y_b,L_A,sur,ins)
 %
 %   prm = CIECAM16_parameters(wp,Y_b,L_A)
 %   prm = CIECAM16_parameters(wp,Y_b,L_A,sur)
-%   prm = CIECAM02_parameters(...,ins)
+%   prm = CIECAM16_parameters(...,ins)
 %
 %% Input Arguments (**==default) %%
 %
@@ -19,7 +19,7 @@ function prm = CIECAM16_parameters(wp,Y_b,L_A,sur,ins)
 %
 %% Output Arguments %%
 %
-%   prm = Scalar structure of CIECAM16 parameter values.
+%   prm = ScalarStructure of CIECAM16 parameter values.
 %
 %% Dependencies %%
 %

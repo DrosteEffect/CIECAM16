@@ -5,12 +5,17 @@ CIECAM16 Color Appearance Model and CAM16 Uniform ColorSpace for MATLAB
 
 This code is based on the following sources:
 
-1. the article "Algorithmic improvements for the CIECAM02 and CAM16 color
-   appearance models" by Nico Schlömer, revised on the 14th of October 2021.
+1. the article "The development of the CIECAM16 and visualization of its 
+   domain and range" by Cheng Gao, Kaida Xiao, Mike Pointer, and Changjun Li
+   in "Color Research and Application" Volume 50 Issue 2, published on the
+   29th of October 2024.
 2. the article "Comprehensive color solutions: CAM16, CAT16, and CAM16-UCS"
    by Changjun Li, Zhiqiang Li, Zhifeng Wang, Yang Xu, Ming Ronnier Luo,
-   Guihua Cui, Manuel Melgosa, Michael H. Brill, Michael Pointer in "Color
-   Research and Application" Volume 42 Issue 6, published on the 10th of June 2017.
+   Guihua Cui, Manuel Melgosa, Michael H. Brill, Michael Pointer
+   in "Color Research and Application" Volume 42 Issue 6, published on the
+   10th of June 2017.
+3. the article "Algorithmic improvements for the CIECAM02 and CAM16 color
+   appearance models" by Nico Schlömer, revised on the 14th of October 2021.
 
 This code does _**not**_ require the Image Processing Toolbox!
 

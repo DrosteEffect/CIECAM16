@@ -22,7 +22,7 @@ function prm = CAM16UCS_parameters(K_L,c1,c2,n)
 %
 %% Output Arguments %%
 %
-%   prm = Scalar structure of CAM16 colorspace parameter values.
+%   prm = ScalarStructure of CAM16 colorspace parameter values.
 %
 %% Dependencies %%
 %

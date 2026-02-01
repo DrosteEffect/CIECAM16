@@ -29,11 +29,11 @@ function out = CAM16UCS_to_CIECAM16(Jab,prm,isd)
 %
 %% Output Arguments %%
 %
-%   out = ScalarStructure of CIECAM16 J, M|C, and h values. Each field has the
-%         class of <Jab>, and either size Nx1 or RxCx1. The fields encode:
+%   out = ScalarStructure with fields of size Nx1 or RxCx1.
+%         The fields have the class of <Jab>. The fields encode:
 %         J = Lightness
-%         M = Colorfulness
-%         C = Chroma
+%         C = Chroma       (UCSHF only)
+%         M = Colorfulness (otherwise)
 %         h = Hue Angle
 %
 %% Dependencies %%
@@ -56,7 +56,7 @@ assert(isreal(Jab),...
 assert(isz(end)==3 || isequal(isz,[3,1]),...
 	'SC:CAM16UCS_to_CIECAM16:Jab:InvalidSize',...
 	'1st input <Jab> last dimension must have size 3 (e.g. Nx3 or RxCx3).')
-isz(end) = 1;
+isz(find(isz==3,1,'last')) = 1;
 %
 Jab = reshape(Jab,[],3);
 %

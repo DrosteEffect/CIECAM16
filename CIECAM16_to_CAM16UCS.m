@@ -21,9 +21,9 @@ function [Jab,suffix] = CIECAM16_to_CAM16UCS(inp,prm,isd)
 %
 %% Input Arguments (**==default) %%
 %
-%   inp = Scalar structure of CIECAM16 J, M, and h values. Each field must
-%         have exactly the same size Nx1 or RxCx1. The fields must be all
-%         double or all single. The fields encode:
+%   inp = ScalarStructure of CIECAM16 J, M, and h values.
+%         The fields must have exactly the same size Nx1 or RxCx1.
+%         The fields must be all double or all single. The fields encode:
 %         J = Lightness
 %         M = Colorfulness
 %         h = Hue Angle
