@@ -12,15 +12,13 @@ function [Jab,csname,zyxlbl] = sRGB_to_CAM16UCS(rgb,isd,varargin)
 %
 %% Examples %%
 %
-%   >> rgb = [64,128,255]/255;
-%   >> Jab = sRGB_to_CAM16UCS(rgb)
+%   >> Jab = sRGB_to_CAM16UCS([64,128,255]/255)
 %   Jab =
-%        56.917    -7.9440    -33.593
+%         58.764     -0.45046      -32.594
 %
-%   >> rgb = uint8([64,128,255]);
-%   >> Jab = sRGB_to_CAM16UCS(rgb)
+%   >> Jab = sRGB_to_CAM16UCS(uint8([64,128,255]))
 %   Jab =
-%        56.917    -7.9440    -33.593
+%         58.764     -0.45046      -32.594
 %
 %% Input Arguments (**==default) %%
 %

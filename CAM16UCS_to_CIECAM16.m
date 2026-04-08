@@ -11,13 +11,14 @@ function out = CAM16UCS_to_CIECAM16(Jab,prm,isd)
 %
 %% Example %%
 %
-%   >> Jab = [56.9174814457648495,-7.94398845807383758,-33.5932377101949626];
+%   >> Jab = sRGB_to_CAM16UCS([64,128,255]/255)
+%   Jab = [58.7636045591994,-0.45045504134303,-32.5943647070039]
 %   >> prm = CAM16UCS_parameters();
 %   >> out = CAM16UCS_to_CIECAM16(Jab,prm)
 %   out =
-%       J:  43.730
-%       M:  52.496
-%       h: 256.70
+%         J:  45.601
+%         M:  48.364
+%         h: 269.21
 %
 %% Input Arguments (**==default) %%
 %

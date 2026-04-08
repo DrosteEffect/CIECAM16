@@ -12,10 +12,11 @@ function [rgb,raw,xyz] = CAM16UCS_to_sRGB(Jab,isd,varargin)
 %
 %% Example %%
 %
-%   >> Jab = [56.9174814457648495,-7.94398845807383758,-33.5932377101949626];
+%   >> Jab = sRGB_to_CAM16UCS([64,128,255]/255)
+%   Jab = [58.7636045591994,-0.45045504134303,-32.5943647070039]
 %   >> rgb = CAM16UCS_to_sRGB(Jab)*255
 %   rgb =
-%        64.000    128.00    255.00
+%         64.000    128.00    255.00
 %
 %% Input Arguments (**==default) %%
 %

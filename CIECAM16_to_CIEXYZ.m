@@ -7,17 +7,17 @@ function XYZ = CIECAM16_to_CIEXYZ(inp,prm)
 %
 %% Example %%
 %
-%   >> inp.J = 43.7296094671109756;
-%   >> inp.M = 52.4958873764575245;
-%   >> inp.h = 256.695342232470466;
+%   >> inp.J = 45.6007349792351775;
+%   >> inp.M = 48.3640578831212338;
+%   >> inp.h = 269.208221113549200;
 %   >> wp  = CIE_whitepoint('D65');
 %   >> prm = CIECAM16_parameters(wp,20,64/pi/5,'average');
 %   >> XYZ = CIECAM16_to_CIEXYZ(inp,prm)
 %   XYZ =
-%        0.27884    0.23748    0.97722
+%         0.27884    0.23748    0.97722
 %   >> rgb = CIEXYZ_to_sRGB(XYZ)*255
 %   rgb =
-%        64.000     128.00     255.00
+%         64.000    128.00    255.00
 %
 %% Input Arguments %%
 %

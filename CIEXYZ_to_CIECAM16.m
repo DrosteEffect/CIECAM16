@@ -8,18 +8,19 @@ function out = CIEXYZ_to_CIECAM16(XYZ,prm,isn)
 %
 %% Example %%
 %
-%   >> XYZ = [0.278835239474185759,0.237483316531782285,0.977220072160195796];
+%   >> XYZ = sRGB_to_CIEXYZ([64,128,255]./255)
+%   XYZ = [0.278835239474186,0.237483316531782,0.977220072160196]
 %   >> wp  = CIE_whitepoint('D65');
 %   >> prm = CIECAM16_parameters(wp,20,64/pi/5,'average');
 %   >> out = CIEXYZ_to_CIECAM16(XYZ,prm)
 %   out =
-%       J:  43.730
-%       Q:  81.799
-%       C:  72.616
-%       M:  52.496
-%       s:  80.110
-%       H: 309.38
-%       h: 256.70
+%         J:  45.601
+%         Q:  83.538
+%         C:  66.901
+%         M:  48.364
+%         s:  76.089
+%         H: 315.99
+%         h: 269.21
 %
 %% Input Arguments (**==default) %%
 %
