@@ -35,6 +35,7 @@ just as easily as they might use `rgb2lab` and `lab2rgb`. This conversion
 is easy with these convenience functions (i.e. `rgb2jab` and `jab2rgb`):
 
     Jab = sRGB_to_CAM16UCS(rgb)
+
     rgb = CAM16UCS_to_sRGB(Jab)
 
 These use default values that are appropriate for sRGB (D65 illuminant, etc),
@@ -49,14 +50,17 @@ While most users will likely want to convert between sRGB and CAM16
 colorspaces, the main functions provide the following conversions:
 
     CIEXYZ_to_CIECAM16()
+
     CIECAM16_to_CIEXYZ()
 
     CIECAM16_to_CAM16UCS()
+
     CAM16UCS_to_CIECAM16()
 
 And for convenience in MATLAB (note that `XYZ` is scaled so `Ymax==1`):
 
     sRGB_to_CIEXYZ()
+
     CIEXYZ_to_sRGB()
 
 Test Scripts
@@ -65,5 +69,8 @@ Test Scripts
 Of course there is no point in writing a conversion this complex without
 testing it thoroughly: test functions check the conversion between CIEXYZ
 and CIECAM16 and CAM16 J'a'b'. The test values are those referenced in the
-Python library "colour-science".
+Python library "colour-science":
+
+<https://pypi.org/project/colour-science/>
+
 The test functions are included in this repository.
