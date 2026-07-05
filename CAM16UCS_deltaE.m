@@ -1,10 +1,11 @@
-function [dE,Jab1,Jab2] = CAM16UCS_deltaE(rgb1,rgb2,varargin)
+function [dE,Jab1,Jab2,name] = CAM16UCS_deltaE(rgb1,rgb2,varargin)
 % Calculate perceptual color difference (deltaE) between sRGB colors using CAM16-UCS.
 %
 %%% Syntax %%%
 %
 %   dE = CAM16UCS_deltaE(rgb1,rgb2)
-%   dE = CAM16UCS_deltaE(rgb1,rgb2,coords)
+%   dE = CAM16UCS_deltaE(rgb1,rgb2,...,coords)
+%   dE = CAM16UCS_deltaE(rgb1,rgb2,...,output)
 %   dE = CAM16UCS_deltaE(rgb1,rgb2,...,<opts>)
 %   [dE,Jab1,Jab2] = CAM16UCS_deltaE(...)
 %
@@ -14,21 +15,21 @@ function [dE,Jab1,Jab2] = CAM16UCS_deltaE(rgb1,rgb2,varargin)
 %   >> rgb2 = [128,64,200]/255;
 %   >> dE = CAM16UCS_deltaE(rgb1,rgb2)
 %   dE =
-%        25.2291
+%        10.7750
 %
 %   >> rgb1 = uint8([64,128,255; 100,150,200]);
 %   >> rgb2 = uint8([128,64,200]);
 %   >> dE = CAM16UCS_deltaE(rgb1,rgb2)
 %   dE =
-%        25.2291
-%        32.6278
+%        10.7750
+%        12.6701
 %
 %   >> dE = CAM16UCS_deltaE(rgb1,rgb2,'JCh')
 %   dE =
-%        25.2291
-%        32.6278
+%        10.7750
+%        12.6701
 %
-%   >> dE = CAM16UCS_deltaE(rgb1,rgb2,'Jab','LCD')
+%   >> dE = CAM16UCS_deltaE(rgb1,rgb2,'Jab','LCD','Euclid')
 %   dE =
 %        33.1955
 %        42.6937
@@ -45,11 +46,17 @@ function [dE,Jab1,Jab2] = CAM16UCS_deltaE(rgb1,rgb2,varargin)
 %          'Jab'** / 'JCh', which selects the CAM16 deltaE coordinates:
 %          Jab   cartesian coordinates: lightness - red/green - yellow/blue
 %          JCh cylindrical coordinates: lightness - chroma - hue angle
-%   <opts> = all trailing inputs are passed to CAM16UCS_parameters.
+%   output = StringScalar or CharRowVector, either of the following:
+%          'Euclid' / 'Huang'**, which select the output transform:
+%          Euclid: no power transform, dE is euclidean in CAM16 colorspace.
+%          Huang: applies the CAM16-UCS power transform from Li et al.
+%          "Comprehensive color solutions: CAM16, CAT16, and CAM16-UCS",
+%          based on the power-function approach of Huang et al.
+%   <opts> = all remaining inputs are passed to CAM16UCS_parameters.
 %
 %% Output Arguments %%
 %
-%   dE = Column vector of Euclidean color differences in CAM16-UCS space.
+%   dE = Column vector of color differences in CAM16-UCS space.
 %        Size Nx1, where N is the max number of colors in <rgb1> or <rgb2>.
 %   Jab1 = Numeric Nx3 matrix of the <rgb1> colors in CAM16 colorspace.
 %   Jab2 = Numeric Nx3 matrix of the <rgb2> colors in CAM16 colorspace.
@@ -63,22 +70,26 @@ function [dE,Jab1,Jab2] = CAM16UCS_deltaE(rgb1,rgb2,varargin)
 
 %% Input Wrangling %%
 %
+ddE = 'HUANG'; % default deltaE
 dcs = 'JAB'; % default coordinates
-for k = 1:numel(varargin)
+for k = numel(varargin):-1:1
 	try %#ok<TRYNC>
 		tmp = upper(varargin{k});
 		switch tmp
 			case {'JAB','JCH'}
 				varargin(k) = [];
 				dcs = tmp;
+			case {'EUCLID','HUANG'}
+				varargin(k) = [];
+				ddE = tmp;
 		end
 	end
 end
 %
 % Convert to CAM16-UCS with isd=true for deltaE calculations.
 % The conversion function performs input checking on the sRGB.
-Jab1 = sRGB_to_CAM16UCS(rgb1,true,varargin{:});
-Jab2 = sRGB_to_CAM16UCS(rgb2,true,varargin{:});
+[Jab1,  ~] = sRGB_to_CAM16UCS(rgb1,true,varargin{:});
+[Jab2,csn] = sRGB_to_CAM16UCS(rgb2,true,varargin{:});
 %
 % Reshape to Nx3
 Jab1 = reshape(Jab1,[],3);
@@ -99,22 +110,34 @@ switch dcs
 	case 'JAB'
 		% Already in J'a'b' format - use bsxfun for compatibility
 		diff = bsxfun(@minus, Jab1, Jab2);
-		dE = sqrt(sum(diff.^2, 2));
+		dE = hypot(hypot(diff(:,1),diff(:,2)),diff(:,3));
 	case 'JCH'
 		% Convert to J'C'h
 		J1 = Jab1(:,1); a1 = Jab1(:,2); b1 = Jab1(:,3);
 		J2 = Jab2(:,1); a2 = Jab2(:,2); b2 = Jab2(:,3);
-		C1 = sqrt(a1.^2 + b1.^2);
-		C2 = sqrt(a2.^2 + b2.^2);
+		C1 = hypot(a1,b1);
+		C2 = hypot(a2,b2);
 		h1 = atan2(b1,a1);
 		h2 = atan2(b2,a2);
 		dh = bsxfun(@minus, h1, h2);
 		dh = mod(dh+pi,2*pi)-pi;
 		dH = 2*sqrt(bsxfun(@times, C1, C2)).*sin(dh/2);
-		dE = sqrt(...
-			bsxfun(@minus, J1, J2).^2 + ...
-			bsxfun(@minus, C1, C2).^2 + dH.^2);
+		dE = hypot(hypot(...
+			bsxfun(@minus, J1, J2), ...
+			bsxfun(@minus, C1, C2)), dH);
 end
+%
+if strcmpi(ddE,'HUANG')
+	switch csn
+		case 'CAM16UCS'
+			dE = 1.41 .* dE.^0.63;
+		otherwise
+			error('SC:CAM16UCS_deltaE:NoPowerTransform',...
+				'The Huang power transform is only defined for UCS. Specify option "Euclid" instead.')
+	end
+end
+%
+name = strcat(csn,'_d',dcs,'_',ddE);
 %
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%CAM16UCS_deltaE
