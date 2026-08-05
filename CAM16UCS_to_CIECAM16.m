@@ -12,13 +12,13 @@ function out = CAM16UCS_to_CIECAM16(Jab,prm,isd)
 %% Example %%
 %
 %   >> Jab = sRGB_to_CAM16UCS([64,128,255]/255)
-%   Jab = [58.7636045591994,-0.45045504134303,-32.5943647070039]
+%   Jab = [58.7620,-0.4543,-32.5929]
 %   >> prm = CAM16UCS_parameters();
 %   >> out = CAM16UCS_to_CIECAM16(Jab,prm)
 %   out =
-%         J:  45.601
-%         M:  48.364
-%         h: 269.21
+%         J:  45.5991
+%         M:  48.3611
+%         h: 269.2014
 %
 %% Input Arguments (**==default) %%
 %
@@ -40,7 +40,7 @@ function out = CAM16UCS_to_CIECAM16(Jab,prm,isd)
 %% Dependencies %%
 %
 % * MATLAB R2009b or later.
-% * CAM16UCS_parameters.m <https://github.com/DrosteEffect/CIECAM16>
+% * CAM16UCS_parameters.m from <https://github.com/DrosteEffect/CIECAM16>
 %
 % See also CIECAM16_TO_CAM16UCS CAM16UCS_PARAMETERS
 % CAM16UCS_TO_SRGB SRGB_TO_CAM16UCS CIECAM16_TO_CIEXYZ

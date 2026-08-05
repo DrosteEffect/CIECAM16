@@ -9,18 +9,18 @@ function out = CIEXYZ_to_CIECAM16(XYZ,prm,isn)
 %% Example %%
 %
 %   >> XYZ = sRGB_to_CIEXYZ([64,128,255]./255)
-%   XYZ = [0.278835239474186,0.237483316531782,0.977220072160196]
-%   >> wp  = CIE_whitepoint('D65');
+%   XYZ = [0.2788,0.2375,0.9773]
+%   >> wp  = get_whitepoint();
 %   >> prm = CIECAM16_parameters(wp,20,64/pi/5,'average');
 %   >> out = CIEXYZ_to_CIECAM16(XYZ,prm)
 %   out =
-%         J:  45.601
-%         Q:  83.538
-%         C:  66.901
-%         M:  48.364
-%         s:  76.089
-%         H: 315.99
-%         h: 269.21
+%         J:  45.5991
+%         Q:  83.5365
+%         C:  66.8966
+%         M:  48.3611
+%         s:  76.0870
+%         H: 315.9893
+%         h: 269.2014
 %
 %% Input Arguments (**==default) %%
 %
@@ -46,7 +46,7 @@ function out = CIEXYZ_to_CIECAM16(XYZ,prm,isn)
 %% Dependencies %%
 %
 % * MATLAB R2009b or later.
-% * CIECAM16_parameters.m <https://github.com/DrosteEffect/CIECAM16>
+% * CIECAM16_parameters.m from <https://github.com/DrosteEffect/CIECAM16>
 %
 % See also CIECAM16_TO_CIEXYZ CIECAM16_TO_CAM16UCS CIEXYZ_TO_SRGB
 % CIECAM16_PARAMETERS
