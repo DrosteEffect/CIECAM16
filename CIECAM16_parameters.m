@@ -102,7 +102,7 @@ prm.H_i = [0;100;200;300;400];
 %% Derive Parameters %%
 %
 prm.RGB_w = prm.XYZ_w * prm.M16.';
-prm.D = prm.F .* (1-(1/3.6) .* exp(-(L_A+42)/92));
+prm.D = prm.F .* (1-(1/3.6) .* exp(-(L_A+42)./92));
 prm.D = max(0,min(1,prm.D));
 %
 prm.RGB_D = prm.D*100 ./ prm.RGB_w + 1 - prm.D;
@@ -112,14 +112,14 @@ prm.q_L = 0.26;
 prm.q_U = max(150,max(prm.RGB_wc));
 % Michaelis-Menten equation for the luminance level adaption factor:
 prm.k = 1 ./ (5*L_A+1);
-prm.F_L = (prm.k.^4 .* (5*L_A))/5 + ((1-prm.k.^4).^2 .* (5*L_A).^(1/3))/10;
+prm.F_L = (prm.k.^4 .* (5*L_A))./5 + ((1-prm.k.^4).^2 .* (5*L_A).^(1/3))./10;
 %
 prm.n = Y_b ./ prm.XYZ_w(2);
 prm.z = 1.48 + sqrt(prm.n);
 prm.N_bb = 0.725 * prm.n.^(-1/5);
 prm.N_cb = prm.N_bb;
 %
-tmp = ((prm.F_L .* prm.RGB_wc)/100).^0.42;
+tmp = ((prm.F_L .* prm.RGB_wc)./100).^0.42;
 if prm.isns
 	prm.RGBa_wc = 400*(tmp ./ (27.13 + tmp));
 	prm.A_w = (prm.RGBa_wc * [2;1;1/20]) * prm.N_bb;

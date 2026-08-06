@@ -128,10 +128,10 @@ end
 %
 %%% Step 5: hue angle & opponent color dimensions a (red-green) & b (yellow-blue) %%%
 %
-a = RGB_a * ([11;-12;1]/11);
-b = RGB_a * ([1;1;-2]/9);
+a = RGB_a * ([11;-12;1]./11);
+b = RGB_a * ([1;1;-2]./9);
 h_rad = atan2(b,a);
-h = mod(180*h_rad/pi, 360);
+h = mod(180*h_rad./pi, 360);
 %
 %%% Step 6: hue composition (using unique hue data) %%%
 %
@@ -145,11 +145,11 @@ H = prm.H_i(idx) + (100*tmp) ./ (tmp + (prm.h_i(idx+1)-hp) ./ prm.e_i(idx+1));
 %%% Step 7: achromatic response %%%
 %
 if prm.isns
-	A = (RGB_a*[2;1;1/20]) .* prm.N_bb;
+	A = (RGB_a*[2;1;1./20]) .* prm.N_bb;
 else % CIE
-	A = (RGB_a*[2;1;1/20] - 0.305) .* prm.N_bb;
+	A = (RGB_a*[2;1;1./20] - 0.305) .* prm.N_bb;
 end
-A(A<0) = 0 / ~(nargin<3 || isn);
+A(A<0) = 0 ./ ~(nargin<3 || isn);
 %
 %%% Step 8: correlate of lightness %%%
 %

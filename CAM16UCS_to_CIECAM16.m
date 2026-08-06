@@ -86,12 +86,12 @@ Mp = hypot(ap,bp);
 %
 if strcmpi('HF',prm.suffix(end-1:end))
 	%
-	C = (exp(prm.k * Mp / prm.n) - 1) / prm.k;
+	C = (exp(prm.k * Mp ./ prm.n) - 1) ./ prm.k;
 	%
 	out = struct('J',J,'C',C,'h',h);
 else
 	%
-	M  = (exp(prm.c2*Mp) - 1) / prm.c2;
+	M  = (exp(prm.c2*Mp) - 1) ./ prm.c2;
 	%
 	out = struct('J',J,'M',M,'h',h);
 end
@@ -102,7 +102,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%CAM16UCS_to_CIECAM16
 function ang = myAtan2d(Y,X)
 % ATAN2 with an output in degrees. Note: ATAN2D only introduced R2012b.
-ang = mod(360*atan2(Y,X)/(2*pi),360);
+ang = mod(360*atan2(Y,X)./(2*pi),360);
 ang(Y==0 & X==0) = 0;
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%myAtan2d

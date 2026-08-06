@@ -42,7 +42,7 @@ function [Jab,csname,zyxlbl] = sRGB_to_CAM16UCS(rgb,isd,varargin)
 %   all from <https://github.com/DrosteEffect/CIECAM16>
 %
 % See also CAM16UCS_TO_SRGB CAM16UCS_PARAMETERS CIECAM16_PARAMETERS
-% get_whitepoint CAM16UCS_TO_CIECAM16 SRGB_TO_CIEXYZ MAXDISTCOLOR
+% GET_WHITEPOINT CAM16UCS_TO_CIECAM16 SRGB_TO_CIEXYZ MAXDISTCOLOR
 
 %% Input Wrangling %%
 %

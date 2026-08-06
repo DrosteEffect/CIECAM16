@@ -99,15 +99,15 @@ assert(strcmp(prm.mfname,mfname),...
 Jp = (1 + 100*prm.c1) .* J ./ (1 + prm.c1*J);
 %
 if nargin>2&&isd
-	Jp = Jp / prm.K_L;
+	Jp = Jp ./ prm.K_L;
 end
 %
 if iHF % Hellwig & Fairchild parameters
-	Cp = prm.n * log(1 + prm.k*C) / prm.k;
+	Cp = prm.n * log(1 + prm.k*C) ./ prm.k;
 	ap = Cp .* cosd(h);
 	bp = Cp .* sind(h);
 else
-	Mp = (1 / prm.c2) * log(1 + prm.c2 * M);
+	Mp = (1 ./ prm.c2) * log(1 + prm.c2 * M);
 	ap = Mp .* cosd(h);
 	bp = Mp .* sind(h);
 end
